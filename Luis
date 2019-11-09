@@ -1,0 +1,93 @@
+//Entradas: Números de acuerdo a cada opción
+//Salidas: Resultado de las operaciones de cada opción
+//Restricciones: Cuando se usa el factorial, se debe ingresar un número mayor o igual a 0
+#include<stdio.h>
+#include<locale.h>
+#include<stdlib.h>
+#include<math.h>
+#define p printf
+#define s scanf
+void expo();
+void factorial();
+float combinatoria(int, int);
+int main()
+{
+    float res;
+    int a, b, temp;
+    char option;
+    setlocale(LC_CTYPE, "Spanish");
+    p("\n\n\t Hello everyone it's Luis from Overwatch team");
+    p("\n\t\n Este programa consigue:"); 
+    p("\n\t a) Un número elevado por otro número");  
+    p("\n\t b) El factorial de un número");
+    p("\n\t c) Combinatoria de dos números");
+    p("\n\n\t Por favor ingrese una letra, de acuerdo a las opciones antes mostradas, para comenzar \n\t");
+    s("%c", &option);
+    switch (option)
+    {
+        case 'a': case 'A':
+            expo();
+            break;
+        case 'b': case 'B':
+            factorial();
+            break;
+        case 'c':  case'C':
+            p("\n\n\t Usted seleccionó la opción c: Combinatoria de dos números");
+            p("\n\n\t Ingrese los dos números \n\t");
+            p("\n\n\t Primero el número de elementos con que se cuenta para combinar \n\t");
+            s("%d", &a);
+            p("\n\n\t Ahora ingrese el número de elementos que se toman para combinar");
+            s("%d", &b);
+            while (a<1 || b<1)
+            {
+                p("\n\n\t Ingrese un número mayor o igual a 1");
+                p("\n\n\t Ingrese ambos números nuevamente por favor");
+                p("\n\n\t Primero el número de elementos con que se cuenta para combinar \n\t");
+                s("%d", &a);
+                p("\n\n\t Ahora ingrese el número de elementos que se toman para combinar");
+                s("%d", &b);
+            }
+            if (b > a)
+                temp=b;
+                b=a;
+                a=temp;
+            p("\n\n\t La combinatoria es de: %.1f", combinatoria(a, b));
+            break;
+        default :
+            p("\n\n\t Error, ingrese una opción válida");
+    }
+    p("\n\n\t Hasta luego, vuelva pronto");
+}
+void expo()
+{
+    float base, expon;
+    p("\n\n\t Usted seleccionó la opción a: Elevar un número por otro");
+    p("\n\n\t Ingrese la base \n\t");
+    s("%f", &base);
+    p("\n\n\t Ingrese el exponente \n\t");
+    s("%f", &expon);
+    p("El resultado de elevar %.2f a la %.2f es: %.2f", base, expon, pow(base, expon));
+}
+void factorial()
+{
+    int fact, res_fact=1, i;
+    p("\n\n\t Ingrese el número a trabajar, recuerde usar únicamente números naturales \n\t");
+    s("%d", &fact);
+    for (i=1; i<=fact; i++)
+        res_fact*=i;
+    p("\n\t El resultado es: %d", res_fact);
+}
+float combinatoria(int d, int u)
+{
+    float res_3;
+    int wh1=1, wh2=1, wh3=1, i, ter;
+    ter = d - u;
+    for (i=1; i<=d; i++)
+        wh1*=i;           //n
+    for (i=1; i<=u; i++)
+        wh2*=i;           //k
+    for (i=1; i<=ter; i++)
+        wh3*=i;           //n-k
+    res_3 = (wh1 * 1.0) / (wh2*wh3);
+    return res_3;
+}
